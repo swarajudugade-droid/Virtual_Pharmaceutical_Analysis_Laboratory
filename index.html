@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Virtual Pharmaceutical Analysis Laboratory | PharmaCalc</title>
+<style>
+:root{--navy:#14324b;--blue:#1769aa;--teal:#087f8c;--bg:#f3f7fb;--ink:#172536;--muted:#5d6b7a;--line:#dbe3ec;--card:#fff;--amber:#fff5dc;--green:#e7f6ee;--red:#fff0ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,#102c46,#1769aa);color:white;padding:29px 20px}header .wrap,main,.foot{max-width:1250px;margin:auto}header h1{margin:0 0 8px;font-size:clamp(27px,4vw,39px);line-height:1.15}header p{margin:0;color:#e5eff9;max-width:900px}.pill{display:inline-block;border:1px solid #ffffff70;border-radius:99px;padding:4px 10px;font-size:12px;margin-bottom:12px}
+main{padding:22px 16px 35px}.notice{background:var(--amber);border:1px solid #efd28a;padding:13px 15px;border-radius:12px;margin-bottom:18px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}.tab{background:#e5edf5;color:#24435d}.tab.active{background:var(--navy);color:white}
+.layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:18px;align-items:start}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 4px 16px #17334a0a;margin-bottom:18px}
+h2{font-size:20px;color:var(--navy);margin:0 0 13px}h3{font-size:16px;color:var(--navy);margin:18px 0 8px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}input,select,textarea{width:100%;padding:10px 11px;border:1px solid #cbd6e2;border-radius:9px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:75px;resize:vertical}input:focus,select:focus,textarea:focus{outline:3px solid #1769aa25;border-color:var(--blue)}
+.field{margin-bottom:13px}.hint{display:block;color:var(--muted);font-size:12px;margin-top:4px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.hidden{display:none!important}
+button{border:0;border-radius:10px;padding:10px 15px;font:inherit;font-weight:750;cursor:pointer}.primary{background:var(--blue);color:#fff}.secondary{background:#eaf1f8;color:var(--navy)}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
+.metric{background:#edf7ff;border:1px solid #c7e3f7;border-radius:13px;padding:15px;margin-bottom:12px}.metric .big{font-size:30px;font-weight:850;color:#075b93;line-height:1.25}.muted{color:var(--muted)}.small{font-size:12px}.formula{font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;background:#f6f8fb;border:1px solid var(--line);padding:11px;border-radius:9px;overflow-wrap:anywhere}.good{background:var(--green);border:1px solid #b9e4ca;padding:11px;border-radius:10px}.warning{background:var(--amber);border:1px solid #efd28a;padding:11px;border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}th{background:#f1f5f9}td input{min-width:70px;padding:7px}.chart{width:100%;height:260px;border:1px solid var(--line);border-radius:10px;background:#fff}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{border:1px solid var(--line);border-radius:10px;padding:10px}.stat strong{font-size:19px;display:block}.stat span{font-size:12px;color:var(--muted)}
+details{border-top:1px solid var(--line);padding:11px 0}summary{font-weight:750;cursor:pointer}ol,ul{padding-left:21px}li{margin:5px 0}.check{display:flex;gap:8px;align-items:flex-start;font-weight:500;margin:8px 0}.check input{width:auto;margin-top:5px}
+footer{background:#102c46;color:#dce7f0;padding:22px 16px;font-size:12px}footer p{margin:5px 0}
+@media(max-width:850px){.layout{grid-template-columns:1fr}}@media(max-width:520px){.grid2,.grid3,.statgrid{grid-template-columns:1fr}.card{padding:15px}header{padding:23px 16px}}
+@media print{body{background:#fff}header{background:#fff;color:#000;padding:10px 0}header p{color:#333}.tabs,.actions{display:none}.layout{grid-template-columns:1fr 1fr}.card{box-shadow:none;break-inside:avoid}main{padding:8px 0}}
+</style></head>
+<body>
+<header><div class="wrap"><span class="pill">PHARMACALC • INTERACTIVE LEARNING</span><h1>Virtual Pharmaceutical Analysis Laboratory</h1><p>Practice titration, calibration curves, pharmaceutical assay, and analytical method validation through simulated datasets, guided calculations, charts, and downloadable lab reports.</p></div></header>
+<main>
+<div class="notice"><strong>Educational simulator:</strong> Results are simulated for teaching and practice. They are not experimental measurements, validated procedures, or results suitable for release testing or regulatory submissions. Follow your laboratory SOPs and instructor guidance for real experiments.</div>
+<div class="tabs" role="tablist">
+<button class="tab active" data-tab="titration">1. Titration</button><button class="tab" data-tab="calibration">2. Calibration curve</button><button class="tab" data-tab="assay">3. Assay</button><button class="tab" data-tab="validation">4. Method validation</button><button class="tab" data-tab="notebook">Lab notebook</button>
+</div>
+<div class="layout">
+<section>
+<div class="card panel" id="panel-titration">
+<h2>Experiment 1 — Acid–base titration</h2>
+<p class="muted">Simulate determination of an analyte concentration from titrant volume and reaction stoichiometry.</p>
+<div class="grid2">
+<div class="field"><label for="titre">Sample aliquot / mass basis (mL)</label><input id="titre" type="number" min="0.001" step="any" value="10"><span class="hint">For this exercise, use a liquid sample aliquot.</span></div>
+<div class="field"><label for="molarity">Titrant concentration (mol/L)</label><input id="molarity" type="number" min="0.000001" step="any" value="0.1"></div>
+<div class="field"><label for="volume">Mean titre volume (mL)</label><input id="volume" type="number" min="0.001" step="any" value="9.8"></div>
+<div class="field"><label for="stoich">Titrant : analyte stoichiometric ratio</label><input id="stoich" type="number" min="0.001" step="any" value="1"><span class="hint">Ratio of moles titrant to moles analyte at equivalence.</span></div>
+<div class="field"><label for="dilution">Overall dilution factor</label><input id="dilution" type="number" min="0.001" step="any" value="1"></div>
+<div class="field"><label for="mw">Analyte molecular weight (g/mol), optional</label><input id="mw" type="number" min="0" step="any" value="60.05"></div>
+</div>
+<div class="actions"><button class="primary" id="calcTit">Calculate titration</button><button class="secondary" id="makeTitData">Generate replicate titres</button></div>
+<h3>Replicate titres (mL)</h3><div class="grid3" id="repTitres"></div>
+<p class="hint">You may edit replicate values. Mean titre updates when you calculate.</p>
+</div>
+<div class="card panel hidden" id="panel-calibration">
+<h2>Experiment 2 — Calibration curve</h2>
+<p class="muted">Fit a linear calibration model using concentration and instrument response pairs. Default values are simulated.</p>
+<div class="grid2">
+<div class="field"><label for="unknownSignal">Unknown sample response</label><input id="unknownSignal" type="number" step="any" value="0.485"></div>
+<div class="field"><label for="calUnits">Concentration unit</label><input id="calUnits" value="µg/mL"></div>
+</div>
+<div class="actions"><button class="primary" id="calcCal">Fit calibration and estimate unknown</button><button class="secondary" id="resetCal">Reset example data</button></div>
+<h3>Calibration data table</h3>
+<table id="calTable"><thead><tr><th>Level</th><th>Concentration</th><th>Response</th><th></th></tr></thead><tbody></tbody></table>
+<div class="actions"><button class="secondary" id="addCal">+ Add point</button><button class="secondary" id="simulateCal">Generate simulated data</button></div>
+<h3>Calibration plot</h3><canvas id="calChart" class="chart" width="800" height="300" aria-label="Calibration curve plot"></canvas>
+</div>
+<div class="card panel hidden" id="panel-assay">
+<h2>Experiment 3 — Pharmaceutical assay</h2>
+<p class="muted">Calculate percentage assay using a simplified reference-standard comparison. Choose the calculation mode that matches the stated exercise.</p>
+<div class="field"><label for="assayMode">Calculation mode</label><select id="assayMode"><option value="standard">Standard comparison (response ratio)</option><option value="titrimetric">Titrimetric assay (equivalent amount)</option></select></div>
+<div id="standardMode">
+<div class="grid2">
+<div class="field"><label for="sampleResp">Sample response</label><input id="sampleResp" type="number" step="any" value="0.492"></div>
+<div class="field"><label for="stdResp">Standard response</label><input id="stdResp" type="number" min="0.000001" step="any" value="0.500"></div>
+<div class="field"><label for="stdConc">Standard concentration / potency basis</label><input id="stdConc" type="number" min="0.000001" step="any" value="100"></div>
+<div class="field"><label for="sampleConc">Nominal sample concentration / label basis</label><input id="sampleConc" type="number" min="0.000001" step="any" value="100"></div>
+<div class="field"><label for="stdPotency">Standard potency (%)</label><input id="stdPotency" type="number" min="0.000001" step="any" value="99.5"></div>
+<div class="field"><label for="assayDilution">Sample dilution / correction factor</label><input id="assayDilution" type="number" min="0.000001" step="any" value="1"></div>
+</div>
+</div>
+<div id="titrimetricMode" class="hidden">
+<div class="grid2">
+<div class="field"><label for="equivVol">Mean titrant volume (mL)</label><input id="equivVol" type="number" min="0.000001" step="any" value="9.8"></div>
+<div class="field"><label for="equivConc">Titrant normality (eq/L)</label><input id="equivConc" type="number" min="0.000001" step="any" value="0.1"></div>
+<div class="field"><label for="equivFactor">Analyte equivalent factor (mg per mL titrant)</label><input id="equivFactor" type="number" min="0.000001" step="any" value="6.005"></div>
+<div class="field"><label for="sampleMass">Sample mass or nominal amount (mg)</label><input id="sampleMass" type="number" min="0.000001" step="any" value="60"></div>
+<div class="field"><label for="equivCorrection">Dilution / aliquot correction factor</label><input id="equivCorrection" type="number" min="0.000001" step="any" value="1"></div>
+</div>
+</div>
+<div class="actions"><button class="primary" id="calcAssay">Calculate assay</button></div>
+<div id="assayResult" class="metric"><div class="big">98.40%</div><div>Simulated assay estimate</div></div>
+</div>
+<div class="card panel hidden" id="panel-validation">
+<h2>Experiment 4 — Analytical method validation</h2>
+<p class="muted">Explore common validation characteristics with a small teaching dataset. This does not establish method fitness or replace a protocol-specific validation plan.</p>
+<div class="grid2">
+<div class="field"><label for="valCharacteristic">Characteristic</label><select id="valCharacteristic"><option value="precision">Precision (repeatability)</option><option value="accuracy">Accuracy / recovery</option><option value="linearity">Linearity</option><option value="lodloq">LOD / LOQ estimate</option><option value="robustness">Robustness comparison</option></select></div>
+<div class="field"><label for="acceptance">Teaching target / limit</label><input id="acceptance" type="number" step="any" value="2"><span class="hint">Interpret in context of the validated procedure and applicable guidance.</span></div>
+</div>
+<div id="valInputs"></div>
+<div class="actions"><button class="primary" id="calcVal">Analyze validation data</button><button class="secondary" id="resetVal">Reset validation data</button></div>
+<div id="valResult" class="metric"><div class="big">Ready</div><div>Select a characteristic and analyze data.</div></div>
+<h3>Validation principles</h3>
+<ul><li><strong>Specificity:</strong> demonstrate that the response is attributable to the analyte in the presence of relevant matrix components.</li><li><strong>Accuracy:</strong> assess closeness to an accepted reference using justified levels and replicates.</li><li><strong>Precision:</strong> evaluate variability under specified repeatability or intermediate-precision conditions.</li><li><strong>Linearity / range:</strong> establish suitable response behavior over a justified working range; do not rely on \(R^2\) alone.</li><li><strong>LOD / LOQ:</strong> use an appropriate method and verify practical performance near the estimated limits.</li><li><strong>Robustness:</strong> test justified small variations in method parameters and evaluate their impact.</li></ul>
+</div>
+<div class="card panel hidden" id="panel-notebook">
+<h2>Virtual laboratory notebook</h2>
+<div class="grid2">
+<div class="field"><label for="student">Student / operator</label><input id="student" placeholder="Name or student ID"></div>
+<div class="field"><label for="practical">Practical title</label><input id="practical" value="Virtual Pharmaceutical Analysis Exercise"></div>
+<div class="field"><label for="date">Date</label><input id="date" type="date"></div>
+<div class="field"><label for="batch">Sample / batch code</label><input id="batch" placeholder="Use a non-sensitive sample code"></div>
+</div>
+<div class="field"><label for="aim">Aim</label><textarea id="aim" placeholder="Write the purpose of the exercise."></textarea></div>
+<div class="field"><label for="principle">Principle and key equation</label><textarea id="principle" placeholder="Summarize the scientific principle and equations."></textarea></div>
+<div class="field"><label for="observations">Observations / interpretation</label><textarea id="observations" placeholder="Record simulated results, calculations, and interpretation."></textarea></div>
+<div class="field"><label for="conclusion">Conclusion and learning points</label><textarea id="conclusion" placeholder="State what the simulated data demonstrate and limitations."></textarea></div>
+<div class="actions"><button class="primary" id="exportReport">Download lab report (.txt)</button><button class="secondary" id="printReport">Print / Save PDF</button></div>
+</div>
+</section>
+<aside>
+<div class="card">
+<h2>Live result panel</h2><div id="mainResult" class="metric"><div class="big">Ready</div><div>Select an experiment and calculate.</div></div>
+<div class="statgrid">
+<div class="stat"><span>Experiment</span><strong id="statExperiment">Titration</strong></div>
+<div class="stat"><span>Result status</span><strong id="statStatus">Practice</strong></div>
+<div class="stat"><span>Data points / replicates</span><strong id="statN">3</strong></div>
+<div class="stat"><span>Last action</span><strong id="statAction">Loaded</strong></div>
+</div>
+<h3>Equation / method</h3><div id="equation" class="formula">C₁V₁ / C₂V₂ with stoichiometric adjustment</div>
+<h3>Interpretation</h3><div id="interpretation" class="good">Simulated data are ready. Run the calculation to see results.</div>
+<div class="actions"><button class="secondary" id="copySummary">Copy result summary</button><button class="secondary" id="clearLog">Clear activity log</button></div>
+</div>
+<div class="card"><h2>Learning objectives</h2><ul><li>Practice unit conversions and stoichiometric calculations.</li><li>Understand calibration regression and unknown-sample estimation.</li><li>Calculate a simplified assay against a reference standard.</li><li>Explore precision, recovery, linearity, detection limits, and robustness.</li><li>Record assumptions and report limitations transparently.</li></ul></div>
+<div class="card"><h2>Activity log</h2><ol id="log"><li>Virtual laboratory loaded.</li></ol></div>
+<div class="card"><h2>Important limitations</h2><p class="small muted">This application uses teaching examples and simplified equations. It does not control laboratory instruments, verify pharmacopoeial monographs, establish validated acceptance criteria, or certify data integrity. Real analytical work requires approved procedures, calibrated equipment, traceable standards, documented calculations, and review by qualified staff.</p></div>
+</aside>
+</div>
+</main>
+<footer><div class="foot"><p><strong>PharmaCalc • Virtual Pharmaceutical Analysis Laboratory</strong></p><p>Designed and Created by Dr. Babaraj Udugade and Mrs. Swati Udugade</p><p>Copyright © Maharashtra Academy of Skills and Knowledge • Registered under MSME</p><p>Educational simulator only. Simulated results are not for clinical, release, or regulatory use.</p></div></footer>
+<script>
+const $=id=>document.getElementById(id);let active='titration';let logs=['Virtual laboratory loaded.'];let lastSummary='Virtual Pharmaceutical Analysis Laboratory: simulated educational results.';
+function num(id){return Number($(id).value)}function fmt(x,d=3){return Number.isFinite(x)?x.toLocaleString(undefined,{maximumFractionDigits:d,minimumFractionDigits:0}):'—'}
+function log(msg){logs.unshift(new Date().toLocaleTimeString()+' — '+msg);logs=logs.slice(0,8);$('log').innerHTML=logs.map(x=>'<li>'+esc(x)+'</li>').join('')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function result(title,body,eq,interp,n,exp,status='Calculated'){const html=`<div class="big">${title}</div><div>${body}</div>`;$('mainResult').innerHTML=html;$('equation').textContent=eq;$('interpretation').textContent=interp;$('statExperiment').textContent=exp;$('statN').textContent=n;$('statAction').textContent='Updated';$('statStatus').textContent=status;lastSummary=exp+'\\n'+title+'\\n'+body+'\\nEquation: '+eq+'\\nInterpretation: '+interp; $('observations').value=$('observations').value||lastSummary;log(exp+': '+title)}
+function showTab(tab){active=tab;document.querySelectorAll('.tab').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);b.setAttribute('aria-selected',b.dataset.tab===tab)});document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('hidden',p.id!=='panel-'+tab));$('statExperiment').textContent=({titration:'Titration',calibration:'Calibration',assay:'Assay',validation:'Validation',notebook:'Lab notebook'})[tab];if(tab==='validation')renderValInputs();log('Opened '+tab+' exercise')}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+function renderReplicates(vals=[9.7,9.8,9.9]){$('repTitres').innerHTML=vals.map((v,i)=>`<div class="field"><label for="rep${i}">Trial ${i+1} (mL)</label><input id="rep${i}" type="number" min="0.0001" step="any" value="${v}"></div>`).join('')}
+renderReplicates();
+$('makeTitData').addEventListener('click',()=>{const base=num('volume')||9.8;renderReplicates([base-.1,base,base+.1]);log('Generated simulated replicate titres')});
+$('calcTit').addEventListener('click',()=>{const reps=[...document.querySelectorAll('#repTitres input')].map(x=>Number(x.value));if(reps.some(x=>!(x>0))||!(num('molarity')>0&&num('titre')>0&&num('stoich')>0&&num('dilution')>0)){alert('Enter positive values for all required titration inputs.');return}const mean=reps.reduce((a,b)=>a+b,0)/reps.length;const sd=Math.sqrt(reps.reduce((s,x)=>s+(x-mean)**2,0)/(reps.length-1||1));const rsd=mean?sd/mean*100:0;$('volume').value=mean.toFixed(4);const cT=num('molarity'),vT=mean/1000,vS=num('titre')/1000,ratio=num('stoich');const cAnalyte=cT*vT/ratio/vS*num('dilution');let mass=num('mw')>0?cAnalyte*num('mw'):NaN;result(fmt(cAnalyte,5)+' mol/L',`Mean titre ${fmt(mean,4)} mL; SD ${fmt(sd,4)} mL; RSD ${fmt(rsd,3)}%`,'C(analyte) = C(titrant) × V(titrant) ÷ stoichiometric ratio ÷ V(sample) × dilution factor',`Assumes a defined stoichiometric equivalence point, standardized titrant, and accurate volumes. ${Number.isFinite(mass)?'Equivalent mass concentration: '+fmt(mass,4)+' g/L.':''}`,reps.length,'Titration');$('mainResult').innerHTML+=`<p class="small">Replicate precision: RSD ${fmt(rsd,3)}%.</p>`;$('statStatus').textContent='Simulated';});
+let calPoints=[];
+function resetCalPoints(){calPoints=[{c:2,y:.112},{c:4,y:.205},{c:6,y:.302},{c:8,y:.401},{c:10,y:.498}];renderCalTable();drawCal()}
+function renderCalTable(){$('calTable').querySelector('tbody').innerHTML=calPoints.map((p,i)=>`<tr><td>${i+1}</td><td><input aria-label="Concentration point ${i+1}" type="number" step="any" value="${p.c}" data-i="${i}" data-k="c"></td><td><input aria-label="Response point ${i+1}" type="number" step="any" value="${p.y}" data-i="${i}" data-k="y"></td><td><button class="secondary" data-remove="${i}" type="button">×</button></td></tr>`).join('');$('calTable').querySelectorAll('input').forEach(el=>el.addEventListener('input',e=>{calPoints[+e.target.dataset.i][e.target.dataset.k]=Number(e.target.value);drawCal()}));$('calTable').querySelectorAll('[data-remove]').forEach(el=>el.addEventListener('click',()=>{calPoints.splice(+el.dataset.remove,1);renderCalTable();drawCal()}))}
+function linearFit(points){const n=points.length;if(n<2)throw Error('Enter at least two calibration points.');const mx=points.reduce((s,p)=>s+p.c,0)/n,my=points.reduce((s,p)=>s+p.y,0)/n;const ssx=points.reduce((s,p)=>s+(p.c-mx)**2,0);if(ssx===0)throw Error('Concentration values must not all be identical.');const slope=points.reduce((s,p)=>s+(p.c-mx)*(p.y-my),0)/ssx,intercept=my-slope*mx;const sst=points.reduce((s,p)=>s+(p.y-my)**2,0),sse=points.reduce((s,p)=>s+(p.y-(intercept+slope*p.c))**2,0);return {slope,intercept,r2:sst?1-sse/sst:1}}
+function drawCal(){const canvas=$('calChart'),ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);const pts=calPoints.filter(p=>Number.isFinite(p.c)&&Number.isFinite(p.y));if(!pts.length)return;const minX=Math.min(0,...pts.map(p=>p.c)),maxX=Math.max(1,...pts.map(p=>p.c))*1.08,minY=Math.min(0,...pts.map(p=>p.y)),maxY=Math.max(1e-6,...pts.map(p=>p.y))*1.12;const L=65,R=20,T=20,B=48,px=x=>L+(x-minX)/(maxX-minX)*(w-L-R),py=y=>h-B-(y-minY)/(maxY-minY)*(h-T-B);ctx.strokeStyle='#dbe3ec';ctx.fillStyle='#536475';ctx.font='13px sans-serif';ctx.lineWidth=1;for(let i=0;i<=4;i++){const x=L+i*(w-L-R)/4;ctx.beginPath();ctx.moveTo(x,T);ctx.lineTo(x,h-B);ctx.stroke();ctx.fillText(fmt(minX+i*(maxX-minX)/4,2),x-10,h-B+20);const y=T+i*(h-T-B)/4;ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(w-R,y);ctx.stroke();ctx.fillText(fmt(maxY-i*(maxY-minY)/4,3),5,y+4)}ctx.fillText('Concentration ('+($('calUnits').value||'units')+')',w/2-80,h-10);ctx.save();ctx.translate(17,h/2+25);ctx.rotate(-Math.PI/2);ctx.fillText('Instrument response',0,0);ctx.restore();pts.forEach(p=>{ctx.beginPath();ctx.arc(px(p.c),py(p.y),5,0,Math.PI*2);ctx.fillStyle='#087f8c';ctx.fill()});try{const f=linearFit(pts);ctx.strokeStyle='#1769aa';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px(minX),py(f.intercept+f.slope*minX));ctx.lineTo(px(maxX),py(f.intercept+f.slope*maxX));ctx.stroke()}catch(e){}}
+$('addCal').addEventListener('click',()=>{const max=Math.max(0,...calPoints.map(p=>p.c));calPoints.push({c:max+2,y:0});renderCalTable();drawCal()});
+$('simulateCal').addEventListener('click',()=>{const slope=.05+Math.random()*.003,intercept=.008+Math.random()*.01;calPoints=[2,4,6,8,10].map(c=>({c,y:intercept+slope*c+(Math.random()-.5)*.012}));renderCalTable();drawCal();log('Generated simulated calibration data')});
+$('resetCal').addEventListener('click',()=>{resetCalPoints();$('unknownSignal').value=.485;log('Reset calibration example')});
+$('calcCal').addEventListener('click',()=>{try{const f=linearFit(calPoints);if(!(f.slope>0))throw Error('This exercise expects a positive calibration slope. Check the data.');const est=(num('unknownSignal')-f.intercept)/f.slope;result(fmt(est,4)+' '+($('calUnits').value||'units'),`Slope ${fmt(f.slope,6)}; intercept ${fmt(f.intercept,6)}; R² ${fmt(f.r2,5)}; estimated unknown ${fmt(est,4)}.`,'y = mx + b; xunknown = (yunknown − b) / m',`A linear least-squares fit was applied to the entered data. Inspect residuals and the working range; R² alone does not establish linearity. Extrapolation beyond the calibrated range is not recommended.`,calPoints.length,'Calibration');drawCal()}catch(e){alert(e.message)}});
+function assay(){if($('assayMode').value==='standard'){const vals=['sampleResp','stdResp','stdConc','sampleConc','stdPotency','assayDilution'].map(num);const [sr,rr,sc,nom,pot,dil]=vals;if(!(rr>0&&sc>0&&nom>0&&pot>0&&dil>0)){alert('Enter positive standard and correction values.');return}const pct=(sr/rr)*(sc/nom)*(pot/100)*dil*100;$('assayResult').innerHTML=`<div class="big">${fmt(pct,3)}%</div><div>Simplified response-ratio assay estimate</div><p class="small">Confirm the calculation formula, standard potency correction, and dilution basis against the applicable method.</p>`;result(fmt(pct,3)+'% assay',`Response ratio ${fmt(sr/rr,5)}; standard potency ${fmt(pot,3)}%.`,'Assay (%) = (sample response / standard response) × (standard basis / sample nominal basis) × (standard potency / 100) × correction × 100','Simplified teaching equation only. Actual pharmacopoeial assay equations may include sample weights, dilution volumes, water/solvent correction, molecular factors, or other terms.',2,'Assay')}else{const v=num('equivVol'),c=num('equivConc'),factor=num('equivFactor'),mass=num('sampleMass'),corr=num('equivCorrection');if(!(v>0&&c>0&&factor>0&&mass>0&&corr>0)){alert('Enter positive titrimetric assay inputs.');return}const amount=v*factor*c/.1*corr;const pct=amount/mass*100;$('assayResult').innerHTML=`<div class="big">${fmt(pct,3)}%</div><div>Simplified titrimetric assay estimate</div><p class="small">Ensure the equivalent factor is defined for the titrant concentration and units used.</p>`;result(fmt(pct,3)+'% assay',`Calculated analyte amount ${fmt(amount,4)} mg against ${fmt(mass,4)} mg nominal amount.`,'Amount (mg) = titre volume × equivalent factor × (titrant concentration / reference concentration) × correction; assay (%) = amount / sample amount × 100','Educational simplified titration calculation. Verify factor units and stoichiometry for the actual analyte and titrant.',1,'Assay')}}
+$('assayMode').addEventListener('change',()=>{$('standardMode').classList.toggle('hidden',$('assayMode').value!=='standard');$('titrimetricMode').classList.toggle('hidden',$('assayMode').value!=='titrimetric')});$('calcAssay').addEventListener('click',assay);
+const validationDefaults={precision:'10.1, 10.0, 10.2, 9.9, 10.1, 10.0',accuracy:'98.5, 99.2, 100.1, 99.6, 98.9, 100.0',linearity:'2,0.112;4,0.205;6,0.302;8,0.401;10,0.498',lodloq:'0.004, 0.006, 0.005, 0.007, 0.004, 0.006',robustness:'10.0, 10.1, 9.9, 10.2, 10.0, 9.8'};
+function renderValInputs(){const c=$('valCharacteristic').value;let label='Measurements (comma-separated)',hint='Enter replicate values.';if(c==='accuracy'){label='Recovery results (%)';hint='Enter recovery percentages from justified levels.'}if(c==='linearity'){label='Concentration,response pairs';hint='Enter as x,y pairs separated by semicolons, e.g. 2,0.112;4,0.205.'}if(c==='lodloq'){label='Blank / low-level response SD values';hint='For this teaching example, values are treated as a response standard deviation dataset.'}if(c==='robustness'){label='Response values under small method variations';hint='Enter responses from planned parameter variations.'}if(c==='precision'){label='Replicate assay results';hint='Enter replicate measurements in the same units.'}$('valInputs').innerHTML=`<div class="field"><label for="valData">${label}</label><textarea id="valData">${validationDefaults[c]}</textarea><span class="hint">${hint}</span></div>`}
+$('valCharacteristic').addEventListener('change',renderValInputs);$('resetVal').addEventListener('click',renderValInputs);
+$('calcVal').addEventListener('click',()=>{const c=$('valCharacteristic').value,raw=$('valData').value.trim(),limit=num('acceptance');try{let out='',eq='',n=0,interp='';if(c==='linearity'){const pts=raw.split(';').map(s=>s.split(',').map(Number)).filter(a=>a.length===2&&a.every(Number.isFinite)).map(a=>({c:a[0],y:a[1]}));const f=linearFit(pts);out='R² '+fmt(f.r2,5);eq='Linear regression: y = mx + b; R² = 1 − SSE/SST';interp=`Slope ${fmt(f.slope,6)}, intercept ${fmt(f.intercept,6)}. Review residuals, range, replicate distribution, and response model; R² is not sufficient alone.`;n=pts.length}else{const a=raw.split(',').map(Number);if(a.length<2||a.some(x=>!Number.isFinite(x)))throw Error('Enter at least two valid numeric values.');n=a.length;const mean=a.reduce((s,x)=>s+x,0)/n,sd=Math.sqrt(a.reduce((s,x)=>s+(x-mean)**2,0)/(n-1));if(c==='precision'){const rsd=sd/Math.abs(mean)*100;out='RSD '+fmt(rsd,3)+'%';eq='RSD (%) = sample SD / mean × 100';interp=`Mean ${fmt(mean,4)}; sample SD ${fmt(sd,4)}. Compare against a justified criterion for this method and concentration.`}else if(c==='accuracy'){out='Mean recovery '+fmt(mean,3)+'%';eq='Mean recovery = Σ recoveryᵢ / n';interp=`Mean recovery ${fmt(mean,3)}%; SD ${fmt(sd,3)} percentage points. Assess bias and variation across suitable concentration levels.`}else if(c==='lodloq'){const sigma=sd;out='Illustrative σ '+fmt(sigma,6);eq='Common estimate examples: LOD ≈ 3.3σ/S; LOQ ≈ 10σ/S';interp='This dataset estimates variability only. A sensitivity/slope value and a suitable method are needed to estimate LOD/LOQ; no LOD/LOQ is asserted here.'}else{const rsd=sd/Math.abs(mean)*100;out='Mean response '+fmt(mean,4);eq='Compare response changes across planned method-parameter variations';interp=`Mean ${fmt(mean,4)}; SD ${fmt(sd,4)}; RSD ${fmt(rsd,3)}%. Assess the direction and magnitude of changes against a predefined, scientifically justified robustness criterion.`}}$('valResult').innerHTML=`<div class="big">${out}</div><div>${interp}</div><p class="small">Teaching analysis only; no pass/fail claim is made unless a suitable method-specific acceptance criterion has been justified.</p>`;result(out,interp,eq,interp,n,'Validation','Teaching result')}catch(e){alert(e.message)}});
+$('copySummary').addEventListener('click',()=>{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(lastSummary).then(()=>log('Copied result summary')).catch(()=>prompt('Copy this summary:',lastSummary));else prompt('Copy this summary:',lastSummary)});
+$('clearLog').addEventListener('click',()=>{logs=[];$('log').innerHTML='<li>No activity recorded.</li>'});
+$('exportReport').addEventListener('click',()=>{const content=`VIRTUAL PHARMACEUTICAL ANALYSIS LABORATORY — LEARNING REPORT\nDate: ${$('date').value||new Date().toLocaleDateString()}\nStudent/operator: ${$('student').value||'Not supplied'}\nPractical title: ${$('practical').value}\nSample/batch code: ${$('batch').value||'Not supplied'}\n\nAIM\n${$('aim').value||'Not supplied'}\n\nPRINCIPLE / EQUATION\n${$('principle').value||$('equation').textContent}\n\nRESULT SUMMARY\n${lastSummary}\n\nOBSERVATIONS / INTERPRETATION\n${$('observations').value||$('interpretation').textContent}\n\nCONCLUSION / LEARNING POINTS\n${$('conclusion').value||'Not supplied'}\n\nDISCLAIMER: Results are simulated and for educational use only; not for release testing or regulatory submissions.\n\nDesigned and Created by Dr. Babaraj Udugade and Mrs. Swati Udugade\nCopyright © Maharashtra Academy of Skills and Knowledge\nRegistered under MSME`;const blob=new Blob([content],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Virtual_Pharmaceutical_Analysis_Lab_Report.txt';a.click();URL.revokeObjectURL(url);log('Exported lab report')});
+$('printReport').addEventListener('click',()=>window.print());
+resetCalPoints();renderValInputs();$('date').value=new Date().toISOString().slice(0,10);showTab('titration');$('calcTit').click();
+</script></body></html>
